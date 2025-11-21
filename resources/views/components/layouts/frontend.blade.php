@@ -28,6 +28,7 @@
             background: #a8a29e;
         }
     </style>
+    @fluxAppearance
 </head>
 <body class="text-stone-800 antialiased">
     <div class="min-h-screen flex flex-col bg-[#FAFAF9]">
@@ -48,7 +49,17 @@
 
                     <div class="flex items-center">
                         @if(auth()->user())
-                            <flux:profile circle :name="auth()->user()->name" />
+                            <flux:dropdown>
+                                <flux:profile circle :name="auth()->user()->name" />
+                                <flux:menu>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <flux:navmenu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">Logout</flux:navmenu.item>
+                                    </form>
+                                </flux:menu>
+                            </flux:dropdown>
+                        @else
+                            <flux:button variant="filled" href="{{ route('login') }}">Login</flux:button>
                         @endif
                     </div>
                 </div>
@@ -73,5 +84,6 @@
             </div>
         </footer>
     </div>
+    @fluxScripts
 </body>
 </html>
