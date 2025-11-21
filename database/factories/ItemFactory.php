@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Occasion;
+use App\Enums\Priority;
 use App\Models\Item;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -28,6 +30,8 @@ final class ItemFactory extends Factory
             'link' => fake()->optional()->url(),
             'price' => fake()->optional()->numberBetween(1000, 50000),
             'store' => fake()->optional()->company(),
+            'priority' => fake()->randomElement(Priority::cases()),
+            'occasion' => fake()->randomElement(Occasion::cases()),
             'purchased' => null,
             'purchased_by' => null,
             'delivered' => null,

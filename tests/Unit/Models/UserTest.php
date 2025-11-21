@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Enums\Occasion;
+use App\Enums\Priority;
 use App\Models\User;
 
 test('to array', function (): void {
@@ -36,6 +38,6 @@ it('returns item count', function (): void {
     $user = User::factory()->create();
     expect($user->itemCount())->toBe(0);
 
-    $user->items()->create(['name' => 'Item 1']);
+    $user->items()->create(['name' => 'Item 1', 'priority' => Priority::HIGH, 'occasion' => Occasion::CHRISTMAS]);
     expect($user->itemCount())->toBe(1);
 });

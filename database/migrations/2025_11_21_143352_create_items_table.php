@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->integer('price')->nullable();
             $table->string('store')->nullable();
+            $table->string('priority');
+            $table->string('occasion');
             $table->boolean('hidden')->default(false);
             $table->timestamp('purchased')->nullable();
             $table->unsignedBigInteger('purchased_by')->nullable();

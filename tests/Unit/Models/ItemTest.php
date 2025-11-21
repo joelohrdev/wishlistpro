@@ -20,6 +20,8 @@ test('to array', function (): void {
             'link',
             'price',
             'store',
+            'priority',
+            'occasion',
             'hidden',
             'purchased',
             'purchased_by',
@@ -31,8 +33,7 @@ test('to array', function (): void {
 
 test('user', function (): void {
     $user = User::factory()->create();
-
-    $item = $user->items()->create(['name' => 'Item 1']);
+    $item = Item::factory()->create(['user_id' => $user->id]);
 
     expect($item->user->id)->toBe($user->id);
 });

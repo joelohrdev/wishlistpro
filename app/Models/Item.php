@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
+use App\Enums\Occasion;
+use App\Enums\Priority;
 use App\Observers\ItemObserver;
 use Carbon\CarbonImmutable;
 use Database\Factories\ItemFactory;
@@ -23,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read string|null $link
  * @property-read int|null $price
  * @property-read string|null $store
+ * @property-read Priority $priority
+ * @property-read Occasion $occasion
  * @property-read bool $hidden
  * @property-read CarbonImmutable|null $purchased
  * @property-read int|null $purchased_by
@@ -50,8 +55,10 @@ final class Item extends Model
             'size' => 'string',
             'color' => 'string',
             'link' => 'string',
-            'price' => 'integer',
+            'price' => MoneyCast::class,
             'store' => 'string',
+            'priority' => Priority::class,
+            'occasion' => Occasion::class,
             'hidden' => 'boolean',
             'purchased' => 'datetime',
             'purchased_by' => 'integer',
