@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Item;
+use App\Models\User;
 
 test('to array', function (): void {
     $item = Item::factory()->create()->refresh();
@@ -26,4 +27,12 @@ test('to array', function (): void {
             'created_at',
             'updated_at',
         ]);
+});
+
+test('user', function (): void {
+    $user = User::factory()->create();
+
+    $item = $user->items()->create(['name' => 'Item 1']);
+
+    expect($item->user->id)->toBe($user->id);
 });

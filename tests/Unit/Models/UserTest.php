@@ -31,3 +31,11 @@ it('returns the first name', function (): void {
 
     expect($user->firstName())->toBe('John');
 });
+
+it('returns item count', function (): void {
+    $user = User::factory()->create();
+    expect($user->itemCount())->toBe(0);
+
+    $user->items()->create(['name' => 'Item 1']);
+    expect($user->itemCount())->toBe(1);
+});
