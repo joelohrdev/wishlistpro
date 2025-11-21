@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\ItemObserver;
 use Carbon\CarbonImmutable;
 use Database\Factories\ItemFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,18 +23,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $price
  * @property-read string|null $store
  * @property-read bool $hidden
- * @property-read bool $purchased
+ * @property-read CarbonImmutable|null $purchased
  * @property-read int|null $purchased_by
- * @property-read bool $delivered
- * @property-read CarbonImmutable|null $delivered_date
+ * @property-read CarbonImmutable|null $delivered
  * @property-read CarbonImmutable $created_at
  * @property-read CarbonImmutable $updated_at
  */
+#[ObservedBy(ItemObserver::class)]
 final class Item extends Model
 {
     /** @use HasFactory<ItemFactory> */
     use HasFactory;
 
+    /**
+     * @return array<string, string>
+     */
     public function casts(): array
     {
         return [
@@ -47,10 +52,9 @@ final class Item extends Model
             'price' => 'integer',
             'store' => 'string',
             'hidden' => 'boolean',
-            'purchased' => 'boolean',
+            'purchased' => 'datetime',
             'purchased_by' => 'integer',
-            'delivered' => 'boolean',
-            'delivered_date' => 'date',
+            'delivered' => 'datetime',
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
         ];

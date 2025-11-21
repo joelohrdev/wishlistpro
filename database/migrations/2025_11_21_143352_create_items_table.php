@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table): void {
             $table->id();
             $table->uuid();
             $table->foreignIdFor(User::class)->constrained('users');
@@ -26,11 +26,9 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->string('store')->nullable();
             $table->boolean('hidden')->default(false);
-            $table->boolean('purchased')->default(false);
+            $table->timestamp('purchased')->nullable();
             $table->unsignedBigInteger('purchased_by')->nullable();
-            $table->date('purchased_date')->nullable();
-            $table->boolean('delivered')->default(false);
-            $table->date('delivered_date')->nullable();
+            $table->timestamp('delivered')->nullable();
             $table->timestamps();
         });
     }

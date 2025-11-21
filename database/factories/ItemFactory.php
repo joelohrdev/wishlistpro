@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Item;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Item>
+ * @extends Factory<Item>
  */
 final class ItemFactory extends Factory
 {
@@ -19,18 +21,44 @@ final class ItemFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(3, true),
-            'size' => $this->faker->optional()->randomElement(['XS', 'S', 'M', 'L', 'XL', 'One Size']),
-            'color' => $this->faker->optional()->colorName(),
-            'link' => $this->faker->optional()->url(),
-            'price' => $this->faker->optional()->randomFloat(2, 10, 500),
-            'store' => $this->faker->optional()->company(),
-            'purchased' => $this->faker->boolean(20),
+            'user_id' => User::factory(),
+            'name' => fake()->sentence(3),
+            'size' => fake()->optional()->randomElement(['XS', 'S', 'M', 'L', 'XL', 'One Size']),
+            'color' => fake()->optional()->safeColorName(),
+            'link' => fake()->optional()->url(),
+            'price' => fake()->optional()->numberBetween(1000, 50000),
+            'store' => fake()->optional()->company(),
+            'purchased' => null,
             'purchased_by' => null,
-            'purchased_date' => null,
-            'delivered' => $this->faker->boolean(10),
-            'delivered_date' => null,
+            'delivered' => null,
             'hidden' => false,
         ];
+    }
+
+    /**
+     * Indicate the item has been purchased.
+     */
+    public function purchased(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'purchased' => fake()->dateTimeBetween('-30 days', 'now'),
+            'purchased_by' => fake()->numberBetween(1, 100),
+        ]);
+    }
+
+    /**
+     * Indicate the item has been purchased and delivered.
+     */
+    public function delivered(): static
+    {
+        return $this->state(function (array $attributes): array {
+            $purchasedDate = fake()->dateTimeBetween('-30 days', '-3 days');
+
+            return [
+                'purchased' => $purchasedDate,
+                'purchased_by' => fake()->numberBetween(1, 100),
+                'delivered' => fake()->dateTimeBetween($purchasedDate, 'now'),
+            ];
+        });
     }
 }
