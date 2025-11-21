@@ -19,6 +19,7 @@ final class CollectionIndex extends Component
      */
     #[Computed]
     #[On('item-created')]
+    #[On('item-deleted')]
     public function items(): Collection
     {
         /** @var User $user */

@@ -16,9 +16,7 @@
                             <a href="{{ $item->link }}" target="_blank" rel="noopener noreferrer" class="p-2 bg-white text-stone-900 rounded-full shadow-lg hover:bg-rose-50 hover:text-rose-600 transition-colors" title="View Product">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link w-4 h-4" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
                             </a>
-                            <button class="p-2 bg-white text-red-500 rounded-full shadow-lg hover:bg-red-50 hover:text-red-600 transition-colors" title="Remove">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2 lucide-trash-2 w-4 h-4" aria-hidden="true"><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M3 6h18"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                            </button>
+                            <livewire:frontend.delete-item :$item />
                         </div>
                     </div>
                     <div class="pt-4 px-2 pb-2 flex-1 flex flex-col">
