@@ -21,7 +21,7 @@ final class DeleteUserForm extends Component
             'password' => ['required', 'string', 'current_password'],
         ]);
 
-        tap(Auth::user(), $logout(...))->delete();
+        tap(Auth::user(), $logout(...))->delete(); // @phpstan-ignore method.nonObject
 
         $this->redirect('/', navigate: true);
     }

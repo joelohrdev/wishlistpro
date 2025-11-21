@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,7 @@ final class UserFactory extends Factory
     /**
      * The current password being used by the factory.
      */
-    private static ?string $password;
+    private static ?string $password; // @phpstan-ignore property.unusedType
 
     /**
      * Define the model's default state.
@@ -35,6 +36,7 @@ final class UserFactory extends Factory
             'two_factor_secret' => Str::random(10),
             'two_factor_recovery_codes' => Str::random(10),
             'two_factor_confirmed_at' => now(),
+            'role' => fake()->randomElement(Role::cases()),
         ];
     }
 

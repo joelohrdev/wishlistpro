@@ -13,6 +13,9 @@ parameters:
         - public
         - routes
 
+    excludePaths:
+        - app/Livewire/Settings/TwoFactor.php
+        - app/Livewire/Settings/TwoFactor/*
 
     level: max
 

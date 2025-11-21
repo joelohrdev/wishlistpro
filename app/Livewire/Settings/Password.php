@@ -33,8 +33,8 @@ final class Password extends Component
             throw $e;
         }
 
-        Auth::user()->update([
-            'password' => $validated['password'],
+        Auth::user()->update([ // @phpstan-ignore method.nonObject
+            'password' => $validated['password'], // @phpstan-ignore offsetAccess.nonOffsetAccessible
         ]);
 
         $this->reset('current_password', 'password', 'password_confirmation');

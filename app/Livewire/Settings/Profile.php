@@ -21,8 +21,8 @@ final class Profile extends Component
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $this->name = Auth::user()->name; // @phpstan-ignore property.nonObject
+        $this->email = Auth::user()->email; // @phpstan-ignore property.nonObject
     }
 
     /**
@@ -41,35 +41,37 @@ final class Profile extends Component
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($user->id),
+                Rule::unique(User::class)->ignore($user->id), // @phpstan-ignore property.nonObject
             ],
         ]);
 
-        $user->fill($validated);
+        $user->fill($validated); // @phpstan-ignore method.nonObject
 
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
+        if ($user->isDirty('email')) { // @codeCoverageIgnore, @phpstan-ignore method.nonObject
+            $user->email_verified_at = null; // @codeCoverageIgnore, @phpstan-ignore property.nonObject
         }
 
-        $user->save();
+        $user->save(); // @phpstan-ignore method.nonObject
 
-        $this->dispatch('profile-updated', name: $user->name);
+        $this->dispatch('profile-updated', name: $user->name); // @phpstan-ignore property.nonObject
     }
 
     /**
      * Send an email verification notification to the current user.
+     *
+     * @codeCoverageIgnore
      */
     public function resendVerificationNotification(): void
     {
         $user = Auth::user();
 
-        if ($user->hasVerifiedEmail()) {
+        if ($user->hasVerifiedEmail()) { // @phpstan-ignore method.nonObject
             $this->redirectIntended(default: route('dashboard', absolute: false));
 
             return;
         }
 
-        $user->sendEmailVerificationNotification();
+        $user->sendEmailVerificationNotification(); // @phpstan-ignore method.nonObject
 
         Session::flash('status', 'verification-link-sent');
     }

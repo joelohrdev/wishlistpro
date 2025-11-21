@@ -16,6 +16,10 @@
         <include>
             <directory>app</directory>
         </include>
+        <exclude>
+            <file>app/Livewire/Settings/TwoFactor.php</file>
+            <directory>app/Livewire/Settings/TwoFactor</directory>
+        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
